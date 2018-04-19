@@ -3,15 +3,10 @@ import PropTypes from 'prop-types';
 import './Track.css';
 
 class Track extends Component {
-	constructor(props) {
-		super(props);
-		this.state = { 
-			isRemoval: true,
-		};
-	}
+
 
 	renderAction() {
-		if (this.state.isRemoval) {
+		if (this.props.isRemoval) {
 			return '+';
 		} else {
 			return '-';

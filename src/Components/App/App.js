@@ -29,6 +29,7 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.state = { 
+      isRemoval: false,
       searchResults: trackResults,
       playlistName: 'Enter Playlist name',
       playlistTracks: [
