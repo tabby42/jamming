@@ -29,7 +29,6 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.state = { 
-      isRemoval: false,
       searchResults: trackResults,
       playlistName: 'Enter Playlist name',
       playlistTracks: [
@@ -60,6 +59,10 @@ class App extends Component {
     }
   }  
 
+  removeTrack(track) {
+    
+  }
+
 
   render() {
     return (
@@ -68,7 +71,7 @@ class App extends Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults tracks={this.state.searchResults} onAdd={this.addTrack} />
+            <SearchResults tracks={this.state.searchResults} onAdd={this.addTrack}  />
             <PlayList playlistName={this.state.playlistName} tracks={this.state.playlistTracks} />
           </div>
         </div>
