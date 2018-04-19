@@ -30,7 +30,7 @@ class App extends Component {
     super(props);
     this.state = { 
       searchResults: trackResults,
-      playlistName: 'New Name',
+      playlistName: 'Enter Playlist name',
       playlistTracks: [
         {
           id: 3,
@@ -40,10 +40,23 @@ class App extends Component {
         }
       ]
     };
+    this.addTrack = this.addTrack.bind(this);
+  }
+
+  checkTrackExists(track) {
+    //check if track is already in playlistTracks
+    return this.state.playlistTracks.some( item => {
+      return item.id === track.id;
+    });
   }
 
   addTrack(track) {
-
+    //check if track is already in playlistTracks, if not -> add track to list and set new state
+    if (!this.checkTrackExists(track) ) {
+      let newStateplaylistTracks = this.state.playlistTracks.slice();
+      newStateplaylistTracks.push(track);
+      this.setState({ playlistTracks: newStateplaylistTracks });
+    }
   }  
 
 
@@ -54,7 +67,7 @@ class App extends Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults tracks={this.state.searchResults} />
+            <SearchResults tracks={this.state.searchResults} onAdd={this.addTrack} />
             <PlayList playlistName={this.state.playlistName} tracks={this.state.playlistTracks} />
           </div>
         </div>

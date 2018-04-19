@@ -7,7 +7,7 @@ class PlayList extends Component {
 	render() {
 		return (
 			<div className="Playlist">
-				<input defaultValue={'New Playlist'} />
+				<input value={this.props.playlistName} />
 				<TrackList tracks={this.props.tracks} />
 				<a className="Playlist-save">SAVE TO SPOTIFY</a>
 			</div>
@@ -16,7 +16,8 @@ class PlayList extends Component {
 }
 
 PlayList.propTypes = {
-	tracks: PropTypes.array
+	tracks: PropTypes.array,
+	playlistName: PropTypes.string
 };
 
 export default PlayList;
