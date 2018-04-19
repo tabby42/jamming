@@ -28,9 +28,24 @@ const trackResults = [
 class App extends Component {
   constructor (props) {
     super(props);
-    this.state = { searchResults: trackResults };
-    
+    this.state = { 
+      searchResults: trackResults,
+      playlistName: 'New Name',
+      playlistTracks: [
+        {
+          id: 3,
+          name: 'Song3',
+          artist: 'Artist3',
+          album: 'Album3'
+        }
+      ]
+    };
   }
+
+  addTrack(track) {
+
+  }  
+
 
   render() {
     return (
@@ -39,8 +54,8 @@ class App extends Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} />
-            <PlayList />
+            <SearchResults tracks={this.state.searchResults} />
+            <PlayList playlistName={this.state.playlistName} tracks={this.state.playlistTracks} />
           </div>
         </div>
       </div>
