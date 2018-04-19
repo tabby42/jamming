@@ -4,11 +4,20 @@ import './PlayList.css';
 import TrackList from '../TrackList/TrackList';
 
 class PlayList extends Component {
+	constructor(props) {
+		super(props);
+		this.handleNameChange = this.handleNameChange.bind(this);
+	}
+
+	handleNameChange(e) {
+		this.props.onUpdatePlaylistName(e.target.value);
+	}
+
 	render() {
 		return (
 			<div className="Playlist">
-				<input defaultValue={this.props.playlistName} />
-				<TrackList tracks={this.props.tracks} />
+				<input defaultValue={this.props.playlistName} onChange={this.handleNameChange}/>
+				<TrackList tracks={this.props.tracks} onRemove={this.props.onRemove} isRemoval={true} />
 				<a className="Playlist-save">SAVE TO SPOTIFY</a>
 			</div>
 		);
@@ -17,7 +26,9 @@ class PlayList extends Component {
 
 PlayList.propTypes = {
 	tracks: PropTypes.array,
-	playlistName: PropTypes.string
+	playlistName: PropTypes.string,
+	onRemove: PropTypes.func,
+	onUpdatePlaylistName: PropTypes.func
 };
 
 export default PlayList;
