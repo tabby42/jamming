@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Track.css';
 
 class Track extends Component {
@@ -29,5 +30,9 @@ class Track extends Component {
 		);
 	}
 }
+
+Track.propTypes = {
+	track: PropTypes.object
+};
 
 export default Track;

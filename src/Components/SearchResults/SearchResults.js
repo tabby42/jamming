@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './SearchResults.css';
 import TrackList from '../TrackList/TrackList';
 
@@ -7,11 +8,14 @@ class SearchResults extends Component {
 		return (
 			<div className="SearchResults">
 			  <h2>Results</h2>
-			  	<TrackList searchResults={this.props.searchResults}/>
-			  	{console.log(this.props.searchResults)}
+			  	<TrackList tracks={this.props.tracks} />
 			</div>
 		);
 	}
 }
+
+SearchResults.propTypes = {
+	tracks: PropTypes.array
+};
 
 export default SearchResults;
