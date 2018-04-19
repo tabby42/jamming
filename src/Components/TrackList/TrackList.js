@@ -8,7 +8,12 @@ class TrackList extends Component {
 		return(
 			<div className="TrackList">
 				{this.props.tracks.map( track => {
-					return <Track track={track} key={track.id} onAdd={this.props.onAdd} />
+					return <Track track={track} 
+									key={track.id} 
+									onAdd={this.props.onAdd} 
+									onRemove={this.props.onRemove} 
+									isRemoval={this.props.isRemoval}
+							/>
 				})}
 			</div>
 		);
@@ -17,7 +22,9 @@ class TrackList extends Component {
 
 TrackList.propTypes = {
 	tracks: PropTypes.array,
-	onAdd: PropTypes.func
+	onAdd: PropTypes.func,
+	onRemove: PropTypes.func,
+	isRemoval: PropTypes.bool
 };
 
 export default TrackList;
