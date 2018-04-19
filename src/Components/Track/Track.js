@@ -5,19 +5,24 @@ import './Track.css';
 class Track extends Component {
 	constructor(props) {
 		super(props);
-		this.addTrack = this.addTrack.bind(this);
+		this.handleAddTrack = this.handleAddTrack.bind(this);
+		this.handleRemoveTrack = this.handleRemoveTrack.bind(this);
 	}
 
 	renderAction() {
 		if (!this.props.isRemoval) {
-			return <a className="Track-action" onClick={this.addTrack} >+</a>;
+			return <a className="Track-action" onClick={this.handleAddTrack} >+</a>;
 		} else {
-			return  <a className="Track-action">-</a>;
+			return  <a className="Track-action" onClick={this.handleRemoveTrack} >-</a>;
 		}
 	}
 
-	addTrack() {
+	handleAddTrack() {
 		this.props.onAdd(this.props.track);
+	}
+
+	handleRemoveTrack() {
+		this.props.onRemove(this.props.track);
 	}
 
 	render() {
