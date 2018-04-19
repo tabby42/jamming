@@ -5,17 +5,15 @@ class Track extends Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-			isRemoval: false,
-			trackAction: '+'
+			isRemoval: true,
 		};
-		this.renderAction = this.renderAction.bind(this);
 	}
 
 	renderAction() {
 		if (this.state.isRemoval) {
-			this.setState({ trackAction: '-' });
+			return '+';
 		} else {
-			this.setState({ trackAction: '+' });
+			return '-';
 		}
 	}
 
@@ -23,10 +21,10 @@ class Track extends Component {
 		return (
 			<div className="Track">
 	            <div className="Track-information">
-	              <h3>Tiny Dancer</h3>
-	              <p>Elton John | Madman Across The Water</p>
+	              <h3>{this.props.track.name}</h3>
+	              <p>{this.props.track.artist} | {this.props.track.album}</p>
 	            </div>
-	            <a className="Track-action">{this.state.trackAction}</a>
+	            <a className="Track-action">{this.renderAction()}</a>
 	        </div>
 		);
 	}
