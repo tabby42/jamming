@@ -8,14 +8,15 @@ class SearchResults extends Component {
 		return (
 			<div className="SearchResults">
 			  <h2>Results</h2>
-			  	<TrackList tracks={this.props.tracks} />
+			  	<TrackList tracks={this.props.tracks} onAdd={this.props.onAdd} isRemoval={false} />
 			</div>
 		);
 	}
 }
 
 SearchResults.propTypes = {
-	tracks: PropTypes.array
+	tracks: PropTypes.array,
+	onAdd: PropTypes.func
 };
 
 export default SearchResults;
