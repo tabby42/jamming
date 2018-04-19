@@ -41,13 +41,13 @@ class App extends Component {
       ]
     };
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
   }
 
   checkTrackExists(track) {
     //check if track is already in playlistTracks
-    return this.state.playlistTracks.some( item => {
-      return item.id === track.id;
-    });
+    return this.state.playlistTracks.some( item => item.id === track.id );
   }
 
   addTrack(track) {
@@ -55,14 +55,26 @@ class App extends Component {
     if (!this.checkTrackExists(track) ) {
       let newStateplaylistTracks = this.state.playlistTracks.slice();
       newStateplaylistTracks.push(track);
-      this.setState({ playlistTracks: newStateplaylistTracks });
+      this.setState({ 
+        playlistTracks: newStateplaylistTracks 
+      });
     }
   }  
 
   removeTrack(track) {
-    
+    //filter playlistTracks and return only those which do not have the id of the track parameter
+    let newStateplaylistTracks = this.state.playlistTracks.filter( item => item.id !== track.id );
+    this.setState({ 
+      playlistTracks: newStateplaylistTracks 
+    });
   }
 
+  updatePlaylistName(newName) {
+    this.setState({
+      playlistName: newName
+    });
+    console.log(this.state.playlistName);
+  }
 
   render() {
     return (
@@ -72,7 +84,11 @@ class App extends Component {
           <SearchBar />
           <div className="App-playlist">
             <SearchResults tracks={this.state.searchResults} onAdd={this.addTrack}  />
-            <PlayList playlistName={this.state.playlistName} tracks={this.state.playlistTracks} />
+            <PlayList playlistName={this.state.playlistName} 
+                      tracks={this.state.playlistTracks} 
+                      onRemove={this.removeTrack} 
+                      onUpdatePlaylistName={this.updatePlaylistName}
+            />
           </div>
         </div>
       </div>
