@@ -43,6 +43,7 @@ class App extends Component {
           name: 'Song3',
           artist: 'Artist3',
           album: 'Album3',
+          image: '',
           uri: 'test3'
         }
       ]
@@ -98,8 +99,9 @@ class App extends Component {
   }
 
   search(searchTerm) {
-    console.log(searchTerm);
+    //console.log(searchTerm);
     spotify.getAccessToken();
+    spotify.searchSpotify(searchTerm);
   }
 
   render() {
