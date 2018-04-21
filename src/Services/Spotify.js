@@ -39,6 +39,7 @@ class Spotify {
 	}
 
 	searchSpotify(term) {
+		accessToken = this.getAccessToken();
 		return fetch( `${searchEndpoint}?type=track&q=${term}`, {
 				headers: {
 			       'Authorization': `Bearer ${accessToken}`
@@ -69,9 +70,6 @@ class Spotify {
 			}
 		});
 	}
-
-
-
 }
 
 export default Spotify;
