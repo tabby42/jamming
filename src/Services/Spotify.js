@@ -2,6 +2,7 @@ const clientId = '2d0ef981a5a243d99d107d71bab58ec6';
 const redirectUri = 'http://localhost:3000/';
 const scopes = 'user-read-private playlist-read-private playlist-modify-private playlist-modify-public';
 const authEndpoint = 'https://accounts.spotify.com/authorize';
+const searchEndpoint = 'https://api.spotify.com/v1/search';
 let accessToken = '';
 
 class Spotify {
@@ -12,23 +13,71 @@ class Spotify {
 		if(accessToken) {
 			return accessToken;
 		} else {
+			//if token already saved in local storage
 			if (localStorage.getItem('spotify_token') !== null) {
+				//save to variable
 				accessToken = localStorage.getItem('spotify_token');
-	      		console.log(accessToken);
+				//clear hash from address bar
+				window.history.replaceState(null, null, '/');
+				//clear tokan variable and localStorage after 1h
+				window.setTimeout(() => {
+					accessToken = '';
+					localStorage.clear();
+				}, 3600 * 1000);
+	      		//console.log(accessToken);
 				return accessToken;
 			} else {
-				window.location = `${authEndpoint}?client_id=${clientId}&response_type=token&scope=${scopes}&redirect_uri=${redirectUri}&show_dialog=true`;
+				window.location = `${authEndpoint}?client_id=${clientId}&response_type=token&scope=${scopes}&redirect_uri=${redirectUri}`;
 				let queryParams = window.location.href;
 				let token = queryParams.match(/access_token=([^&]*)/);
 				localStorage.setItem("spotify_token", token[1]);
 				accessToken = localStorage.getItem('spotify_token');
-	      		console.log(accessToken);
+	      		//console.log(accessToken);
 				return accessToken;
 			}
 		}
 	}
 
- //  getAccessToken() {
+	searchSpotify(term) {
+		return fetch( `${searchEndpoint}?type=track&q=${term}`, {
+				headers: {
+			       'Authorization': `Bearer ${accessToken}`
+			   }  
+		}).then( response => {
+			if(response.ok) {
+				//console.log(response.json());
+				let rsp = response.json();
+				console.log(rsp);
+		        return rsp;
+		    } else {
+		    	throw new Error('Request failed!');
+		    }
+		}).then( jsonResponse => {
+			if (jsonResponse.hasOwnProperty('tracks')) {
+				const tracksArray = jsonResponse.tracks.items.map( track => {
+					return {
+						id: track.id,
+						name: track.name,
+						artist: track.artists[0].name,
+						album: track.album.name,
+						image: track.album.images[1].url,
+						uri: track.uri
+					};
+				});
+				console.log(tracksArray);
+				return tracksArray;
+			}
+		});
+	}
+
+
+
+}
+
+export default Spotify;
+
+
+//  getAccessToken() {
  //    if (accessToken) {
  //      return accessToken;
  //    }
@@ -62,7 +111,4 @@ class Spotify {
 	//         console.log("hello the window is " + window.location);
 	//     }
 	// }
-}
-
-export default Spotify;
 
