@@ -29,6 +29,7 @@ class Track extends Component {
 		return (
 			<div className="Track">
 	            <div className="Track-information">
+	        {/*<img src={this.props.track.image} alt={this.props.track.artist} />*/}
 	              <h3>{this.props.track.name}</h3>
 	              <p>{this.props.track.artist} | {this.props.track.album}</p>
 	            </div>
