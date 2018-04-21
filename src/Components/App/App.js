@@ -5,48 +5,39 @@ import SearchResults from '../SearchResults/SearchResults';
 import PlayList from '../PlayList/PlayList';
 import Spotify from '../../Services/Spotify';
 
-const trackResults = [
-  {
-    id: 1,
-    name: 'Song1',
-    artist: 'Artist1',
-    album: 'Album1',
-    uri: 'test1'
-  },
-  {
-    id: 2,
-    name: 'Song2',
-    artist: 'Artist2',
-    album: 'Album2',
-    uri: 'test2'
-  },
-  {
-    id: 3,
-    name: 'Song3',
-    artist: 'Artist3',
-    album: 'Album3',
-    uri: 'test3'
-  }
-];
+// const trackResults = [
+//   {
+//     id: 1,
+//     name: 'Song1',
+//     artist: 'Artist1',
+//     album: 'Album1',
+//     uri: 'test1'
+//   },
+//   {
+//     id: 2,
+//     name: 'Song2',
+//     artist: 'Artist2',
+//     album: 'Album2',
+//     uri: 'test2'
+//   },
+//   {
+//     id: 3,
+//     name: 'Song3',
+//     artist: 'Artist3',
+//     album: 'Album3',
+//     uri: 'test3'
+//   }
+// ];
 
-const spotify = new Spotify();
+let spotify = new Spotify();
 
 class App extends Component {
   constructor (props) {
     super(props);
     this.state = { 
-      searchResults: trackResults,
+      searchResults: [],
       playlistName: 'Enter Playlist name',
-      playlistTracks: [
-        {
-          id: 3,
-          name: 'Song3',
-          artist: 'Artist3',
-          album: 'Album3',
-          image: '',
-          uri: 'test3'
-        }
-      ]
+      playlistTracks: []
     };
     //bind methods to the current value of this
     this.addTrack = this.addTrack.bind(this);
@@ -100,8 +91,15 @@ class App extends Component {
 
   search(searchTerm) {
     //console.log(searchTerm);
-    spotify.getAccessToken();
-    spotify.searchSpotify(searchTerm);
+    if (searchTerm) {
+      spotify.searchSpotify(searchTerm)
+     .then(
+        tracks => {
+          this.setState({ searchResults: tracks });
+        }
+      );
+    }
+    
   }
 
   render() {
