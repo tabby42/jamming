@@ -83,6 +83,7 @@ class App extends Component {
   savePlaylist() {
     let trackURIs = this.state.playlistTracks.map( track => track.uri);
     console.log(trackURIs);
+    spotify.savePlaylistToSpotify(this.state.playlistName, trackURIs);
     this.setState({
        playlistTracks: [],
        playlistName: 'New Playlist'
@@ -99,7 +100,6 @@ class App extends Component {
         }
       );
     }
-    
   }
 
   render() {

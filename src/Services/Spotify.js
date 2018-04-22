@@ -3,6 +3,7 @@ const redirectUri = 'http://localhost:3000/';
 const scopes = 'user-read-private playlist-read-private playlist-modify-private playlist-modify-public';
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 const searchEndpoint = 'https://api.spotify.com/v1/search';
+const userEndpoint = 	'https://api.spotify.com/v1/me';
 let accessToken = '';
 
 class Spotify {
@@ -68,6 +69,41 @@ class Spotify {
 				console.log(tracksArray);
 				return tracksArray;
 			}
+		});
+	}
+
+	savePlaylistToSpotify(playlistName, uriArray) {
+		if (!playlistName || uriArray.length === 0) {
+			return;
+		}
+		accessToken = this.getAccessToken();
+		const headers = { 'Authorization': `Bearer ${accessToken}` };
+
+		//GET current user's id
+		let userId = this.getUserId(accessToken, headers);
+		//POST new playlist with name and get its id
+		userId.then( uId => {
+			console.log(uId);
+		});
+		//POST the uris with the user-is and playlist-id
+	}
+
+	getUserId( accessToken, headers) {
+		return fetch( `${userEndpoint}`, {headers})
+		.then( response => {
+				if(response.ok) {
+					//console.log(response.json());
+					let rsp = response.json();
+					console.log(rsp);
+			        return rsp;
+			    } else {
+			    	throw new Error('Request failed!');
+			    }
+			},
+	  		networkError => {
+	    		console.log(networkError.message);
+		  }).then( jsonResponse => {
+			return jsonResponse.id;
 		});
 	}
 }
