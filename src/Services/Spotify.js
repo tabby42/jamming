@@ -21,7 +21,8 @@ class Spotify {
 				accessToken = localStorage.getItem('spotify_token');
 				//clear hash from address bar
 				window.history.replaceState(null, null, '/');
-				//clear tokan variable and localStorage after 1h
+				//clear tokan variable and localStorage after 1h ->
+				//->not working -> TODO: try fixing with setting lastclear in localStorage
 				window.setTimeout(() => {
 					accessToken = '';
 					localStorage.clear();
@@ -77,27 +78,45 @@ class Spotify {
 		if (!playlistName || uriArray.length === 0) {
 			return;
 		}
+		console.log('uris: ' + uriArray);
 		accessToken = this.getAccessToken();
-		const headers = { 'Authorization': `Bearer ${accessToken}` };
+		const headers = { 'Authorization': `Bearer ${accessToken}` } ;
 		//GET current user's id
 		let userId = this.getUserId(accessToken, headers);
 		//POST new playlist with name and get its id
 		//then POST the uris with the user-id and playlist-id
 		userId.then( uId => {
 			let playlistId = this.getPLaylistId(uId, headers, playlistName);
-			return playlistId;
-		}).then( pId => {
-
-		});
+			playlistId.then( pId => {
+				return fetch(`${endpoint}users/${uId}/playlists/${pId}/tracks?uris=${uriArray.join(',')}`, {
+					headers,
+					method: 'POST'
+				}).then( response => {
+						if(response.ok) {
+							//console.log(response.json());
+							let rsp = response.json();
+							console.log(rsp);
+					        return rsp;
+					    } else {
+					    	throw new Error('Post Request failed!');
+					    }
+					},
+					networkError => {
+		    		console.log(networkError.message);
+			    }).then(jsonResponse => {
+			    	//console.log(jsonResponse);
+			    	return jsonResponse;
+			    });
+			});
+		})
 	}
 
 	getUserId( accessToken, headers) {
 		return fetch( `${userEndpoint}`, {headers})
 		.then( response => {
 				if(response.ok) {
-					//console.log(response.json());
 					let rsp = response.json();
-					//console.log(rsp);
+					console.log(rsp);
 			        return rsp;
 			    } else {
 			    	throw new Error('Request failed!');
@@ -115,7 +134,6 @@ class Spotify {
 			body: JSON.stringify({name: playlistName}) 
 		}).then( response => {
 				if(response.ok) {
-					//console.log(response.json());
 					let rsp = response.json();
 					console.log(rsp);
 			        return rsp;
