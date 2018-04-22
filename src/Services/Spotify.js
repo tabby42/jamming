@@ -2,8 +2,9 @@ const clientId = '2d0ef981a5a243d99d107d71bab58ec6';
 const redirectUri = 'http://localhost:3000/';
 const scopes = 'user-read-private playlist-read-private playlist-modify-private playlist-modify-public';
 const authEndpoint = 'https://accounts.spotify.com/authorize';
-const searchEndpoint = 'https://api.spotify.com/v1/search';
-const userEndpoint = 	'https://api.spotify.com/v1/me';
+const endpoint = 'https://api.spotify.com/v1/';
+const searchEndpoint = `${endpoint}search`;
+const userEndpoint = `${endpoint}me`;
 let accessToken = '';
 
 class Spotify {
@@ -78,14 +79,16 @@ class Spotify {
 		}
 		accessToken = this.getAccessToken();
 		const headers = { 'Authorization': `Bearer ${accessToken}` };
-
 		//GET current user's id
 		let userId = this.getUserId(accessToken, headers);
 		//POST new playlist with name and get its id
+		//then POST the uris with the user-id and playlist-id
 		userId.then( uId => {
-			console.log(uId);
+			let playlistId = this.getPLaylistId(uId, headers, playlistName);
+			return playlistId;
+		}).then( pId => {
+
 		});
-		//POST the uris with the user-is and playlist-id
 	}
 
 	getUserId( accessToken, headers) {
@@ -94,7 +97,7 @@ class Spotify {
 				if(response.ok) {
 					//console.log(response.json());
 					let rsp = response.json();
-					console.log(rsp);
+					//console.log(rsp);
 			        return rsp;
 			    } else {
 			    	throw new Error('Request failed!');
@@ -102,9 +105,30 @@ class Spotify {
 			},
 	  		networkError => {
 	    		console.log(networkError.message);
-		  }).then( jsonResponse => {
-			return jsonResponse.id;
-		});
+		  }).then( jsonResponse => jsonResponse.id);
+	}
+
+	getPLaylistId(uId, headers, playlistName) {
+		return fetch(`${endpoint}users/${uId}/playlists`, {
+			headers,
+			method: 'POST',
+			body: JSON.stringify({name: playlistName}) 
+		}).then( response => {
+				if(response.ok) {
+					//console.log(response.json());
+					let rsp = response.json();
+					console.log(rsp);
+			        return rsp;
+			    } else {
+			    	throw new Error('Post Request failed!');
+			    }
+			},
+			networkError => {
+    		console.log(networkError.message);
+	    }).then(jsonResponse => {
+	    	console.log(jsonResponse.id);
+	    	return jsonResponse.id;
+	    });
 	}
 }
 
