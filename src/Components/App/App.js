@@ -36,7 +36,7 @@ class App extends Component {
     super(props);
     this.state = { 
       searchResults: [],
-      playlistName: 'Enter Playlist name',
+      playlistName: 'New Playlist',
       playlistTracks: []
     };
     //bind methods to the current value of this
@@ -105,9 +105,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Ja<span className="highlight">mmm</span>ing</h1>
-        <div className="App">
+        <div className="Header-container">
+          <h1>Ja<span className="highlight">mmm</span>ing</h1>
           <SearchBar onSearch={this.search} />
+        </div>
+        <div className="App">
           <div className="App-playlist">
             <SearchResults tracks={this.state.searchResults} onAdd={this.addTrack}  />
             <PlayList playlistName={this.state.playlistName} 
