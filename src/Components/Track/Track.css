@@ -1,7 +1,9 @@
 .Track {
   display: flex;
   align-items: center;
+  background-color: #cac7bc;
   border-bottom: 1px solid rgba(256, 256, 256, 0.8);
+  padding: .5rem;
 }
 
 .Track-action {
@@ -24,14 +26,14 @@
 
 .Track-information h3 {
   margin-bottom: .22rem;
-}
-
-.Track-information  img {
-  max-width:  120px;
+  text-align: left;
+  font-size: 0.8rem;
+  padding-bottom: 0;
+  color:  #03000a;
 }
 
 .Track-information p {
-  font-size: .83rem;
+  font-size: .73rem;
   font-weight: 300;
-  color: rgba(256, 256, 256, 0.8);
+  color: #fff;
 }

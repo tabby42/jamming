@@ -2,39 +2,47 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: scroll;
   width: 37%;
-  max-height: 950px;
-  padding: 2.27rem 1.16rem;
-  background-color: rgba(1, 12, 63, 0.7);
-  box-shadow: 0 4px 2px 2px #000000;
+  padding: 2rem;
+  background-color: #fff;
+}
+
+h3 {
+  color:   #465d80;
+  font-size: 1.4rem;
+  
 }
 
 .Playlist input {
-  width: 100%;
+  width: 85%;
   border: 0;
   outline: 0;
   background: transparent;
   border-bottom: 1px solid #6f6f6f;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.55rem;
-  color: #fff;
+  font-size: 0.8rem;
+  color: #03000a;
+  padding: 0.58rem;
+  margin-bottom: 1rem;
 }
 
 .Playlist-save {
   cursor: pointer;
-  width: 10rem;
-  padding: .77rem 0;
-  border-radius: 54px;
-  margin-top: 1.27rem;
-  background-color: #6c41ec;
+  width: 95%;
+  padding: 0.78rem 0; 
+  /* border-radius: 54px; */
+  color: #fff;
+  background-color: #03000a;
+  border:  3px solid #03000a;
   text-align: center;
-  font-size: .83rem;
-  transition: background-color .25s;
+  font-size: .833rem;
+  transition: all .25s ease;
+  margin: 1rem 0 .5rem;
 }
 
 .Playlist-save:hover {
-  background-color: rgba(108, 65, 233, .7);
+  background-color: #cac7bc;
+  border-color:  #cac7bc;
+  color:  #03000a;  
 }
 
 ::-webkit-scrollbar {
