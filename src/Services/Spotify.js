@@ -19,6 +19,10 @@ class Spotify {
 			if (localStorage.getItem('spotify_token') !== null) {
 				//save to variable
 				accessToken = localStorage.getItem('spotify_token');
+				if (localStorage.getItem('token_set') === null) {
+					let now = Date.now();
+					localStorage.setItem('token_set', now);
+				}
 				//clear hash from address bar
 				window.history.replaceState(null, null, '/');
 				//clear tokan variable and localStorage after 1h ->
@@ -34,7 +38,8 @@ class Spotify {
 				let queryParams = window.location.href;
 				let token = queryParams.match(/access_token=([^&]*)/);
 				localStorage.setItem("spotify_token", token[1]);
-				localStorage.setItem('token_set', new Date().timeNow());
+				let now = Date.now();
+				localStorage.setItem('token_set', now);
 				accessToken = localStorage.getItem('spotify_token');
 	      		//console.log(accessToken);
 				return accessToken;
