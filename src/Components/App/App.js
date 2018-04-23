@@ -82,7 +82,7 @@ class App extends Component {
   //and resets the state for playlistName and playlistTracks
   savePlaylist() {
     let trackURIs = this.state.playlistTracks.map( track => track.uri);
-    console.log(trackURIs);
+    //console.log(trackURIs);
     spotify.savePlaylistToSpotify(this.state.playlistName, trackURIs);
     this.setState({
        playlistTracks: [],
