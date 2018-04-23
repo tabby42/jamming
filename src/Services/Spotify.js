@@ -34,6 +34,7 @@ class Spotify {
 				let queryParams = window.location.href;
 				let token = queryParams.match(/access_token=([^&]*)/);
 				localStorage.setItem("spotify_token", token[1]);
+				localStorage.setItem('token_set', new Date().timeNow());
 				accessToken = localStorage.getItem('spotify_token');
 	      		//console.log(accessToken);
 				return accessToken;
@@ -93,7 +94,6 @@ class Spotify {
 					method: 'POST'
 				}).then( response => {
 						if(response.ok) {
-							//console.log(response.json());
 							let rsp = response.json();
 							console.log(rsp);
 					        return rsp;
@@ -107,8 +107,10 @@ class Spotify {
 			    	//console.log(jsonResponse);
 			    	return jsonResponse;
 			    });
+			}).catch( error => {
+				console.log('Request failed', error);
 			});
-		})
+		});
 	}
 
 	getUserId( accessToken, headers) {
