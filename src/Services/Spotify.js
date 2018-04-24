@@ -22,16 +22,22 @@ class Spotify {
 				if (localStorage.getItem('token_set') === null) {
 					let now = Date.now();
 					localStorage.setItem('token_set', now);
+				} else {
+					//check difference and if more than 1h has passed
+					//clear token variable and localStorage after 1h ->
+					let now = Date.now();
+					let token_set = Number(localStorage.getItem('token_set'));
+					if ((now - token_set) > 3600 * 1000) {
+						accessToken = '';
+						localStorage.clear();
+					}
 				}
 				//clear hash from address bar
 				window.history.replaceState(null, null, '/');
-				//clear tokan variable and localStorage after 1h ->
-				//->not working -> TODO: try fixing with setting lastclear in localStorage
-				window.setTimeout(() => {
-					accessToken = '';
-					localStorage.clear();
-				}, 3600 * 1000);
-	      		//console.log(accessToken);
+				// window.setTimeout(() => {
+				// 	accessToken = '';
+				// 	localStorage.clear();
+				// }, 3600 * 1000);
 				return accessToken;
 			} else {
 				window.location = `${authEndpoint}?client_id=${clientId}&response_type=token&scope=${scopes}&redirect_uri=${redirectUri}`;
