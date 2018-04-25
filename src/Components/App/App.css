@@ -1,4 +1,4 @@
-/* black #03000a*/
+/* black #03000a  */
 /* yellow #f7c40a*/
 /* gray #cac7bc */
 /* blue #465d80 */
@@ -17,9 +17,10 @@ html {
 h1 {
   padding: .77rem 1rem;
   text-align: left;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.88rem;
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 2.5rem;
   color: #fff;
+  text-transform: uppercase;
 }
 
 h1 .highlight {
@@ -35,7 +36,7 @@ h3 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #465d80;
+  background-color: #cac7bc;
   align-items: center;
 }
 
