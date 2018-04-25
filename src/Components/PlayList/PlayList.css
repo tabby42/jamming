@@ -37,12 +37,13 @@ h3 {
   font-size: .833rem;
   transition: all .25s ease;
   margin: 1rem 0 .5rem;
+  font-family: 'Black Han Sans', sans-serif;
 }
 
-.Playlist-save:hover {
-  background-color: #cac7bc;
-  border-color:  #cac7bc;
-  color:  #03000a;  
+.Playlist-save:hover,
+.Playlist-save:focus {
+    background-color: #a29e8f;
+    border-color: #a29e8f;
 }
 
 ::-webkit-scrollbar {

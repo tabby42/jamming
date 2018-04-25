@@ -32,12 +32,14 @@
   text-align: center;
   font-size: .833rem;
   transition: all .25s ease;
+  font-family: 'Black Han Sans', sans-serif;
 }
 
-.SearchBar a:hover {
-  background-color: #cac7bc;
-  border-color:  #cac7bc;
-  color:  #03000a;  
+.SearchBar a:hover,
+ .SearchBar a:focus{
+    background-color: #a29e8f;
+    border-color: #a29e8f;
+    color: #fff;  
 }
 
 .InputAddOn {
@@ -49,6 +51,17 @@
 }
 
 .InputAddOn-item {
+
+}
+
+@media (max-width: 480px) {
+  .SearchBar input {
+    width:  190px;
+  }
+
+  .SearchBar a {
+    width:  6rem;
+  }
 
 }
 
