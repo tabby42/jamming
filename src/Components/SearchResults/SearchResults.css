@@ -5,6 +5,12 @@
   margin-right: 0.8rem;
 }
 
+.SearchResults p {
+  color:  #03000a  ;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent;
