@@ -23,8 +23,9 @@ class Spotify {
 					let now = Date.now();
 					localStorage.setItem('token_set', now);
 				} else {
-					//check difference and if more than 1h has passed
-					//clear token variable and localStorage after 1h ->
+					//check difference between now and when token was set 
+					//and if more than 1h has passed
+					//clear token variable and localStorage
 					let now = Date.now();
 					let token_set = Number(localStorage.getItem('token_set'));
 					if ((now - token_set) > 3600 * 1000) {
@@ -34,16 +35,13 @@ class Spotify {
 				}
 				//clear hash from address bar
 				window.history.replaceState(null, null, '/');
-				// window.setTimeout(() => {
-				// 	accessToken = '';
-				// 	localStorage.clear();
-				// }, 3600 * 1000);
 				return accessToken;
 			} else {
 				window.location = `${authEndpoint}?client_id=${clientId}&response_type=token&scope=${scopes}&redirect_uri=${redirectUri}`;
 				let queryParams = window.location.href;
 				let token = queryParams.match(/access_token=([^&]*)/);
 				localStorage.setItem("spotify_token", token[1]);
+				//store time when token has been set
 				let now = Date.now();
 				localStorage.setItem('token_set', now);
 				accessToken = localStorage.getItem('spotify_token');
@@ -83,6 +81,8 @@ class Spotify {
 				console.log(tracksArray);
 				return tracksArray;
 			}
+		}).catch( error => {
+			console.log('Request failed', error);
 		});
 	}
 
@@ -96,7 +96,7 @@ class Spotify {
 		//GET current user's id
 		let userId = this.getUserId(accessToken, headers);
 		//POST new playlist with name and get its id
-		//then POST the uris with the user-id and playlist-id
+		//then POST the track uris with the user-id and playlist-id
 		userId.then( uId => {
 			let playlistId = this.getPLaylistId(uId, headers, playlistName);
 			playlistId.then( pId => {
