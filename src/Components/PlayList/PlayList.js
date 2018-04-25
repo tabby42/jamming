@@ -38,7 +38,10 @@ class PlayList extends Component {
 	render() {
 		return (
 			<div className="Playlist">
-				<input placeholder="Enter Playlist Name" onChange={this.handleNameChange} onKeyPress={this.handleKeyPress} value={this.state.inputValue}/>
+				<input placeholder="Enter Playlist Name" 
+					   onChange={this.handleNameChange} 
+					   onKeyPress={this.handleKeyPress} 
+					   value={this.state.inputValue}/>
 				<h3>{this.props.playlistName}</h3>
 				<TrackList tracks={this.props.tracks} onRemove={this.props.onRemove} isRemoval={true} />
 				<a className="Playlist-save" onClick={this.handleClick} >SAVE TO SPOTIFY</a>
