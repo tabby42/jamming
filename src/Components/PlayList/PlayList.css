@@ -51,6 +51,12 @@ h3 {
     background: transparent;
 }
 
+.warning {
+  padding:  0.5rem;
+  text-align: center;
+  background-color: #f7c40a;
+}
+
 @media only screen and (max-width: 1020px) {
   .Playlist {
     width: 90%;
