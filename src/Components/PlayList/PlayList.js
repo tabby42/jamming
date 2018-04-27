@@ -7,11 +7,13 @@ class PlayList extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-	      inputValue: ''
+	      inputValue: '',
+	      errMessages: {notSet: '', empty: ''}
 	    };
 		this.handleNameChange = this.handleNameChange.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.handleClick = this.handleClick.bind(this);
+		// this.checkErrors = this.checkErrors.bind(this);
 	}
 
 	handleNameChange(e) {
@@ -31,8 +33,10 @@ class PlayList extends Component {
 	handleClick(e) {
 		this.props.onSave();
 		this.setState({
-			inputValue: ''
-		});
+			inputValue: '',
+			playlistEmpty: false,
+      		playlistNameSet: true
+  		});
 	}
 
 	render() {
@@ -45,6 +49,7 @@ class PlayList extends Component {
 				<h3>{this.props.playlistName}</h3>
 				<TrackList tracks={this.props.tracks} onRemove={this.props.onRemove} isRemoval={true} />
 				<a className="Playlist-save" onClick={this.handleClick} >SAVE TO SPOTIFY</a>
+				
 			</div>
 		);
 	}
@@ -54,8 +59,7 @@ PlayList.propTypes = {
 	tracks: PropTypes.array,
 	playlistName: PropTypes.string,
 	onRemove: PropTypes.func,
-	onUpdatePlaylistName: PropTypes.func,
-	onClick: PropTypes.func
+	onUpdatePlaylistName: PropTypes.func
 };
 
 export default PlayList;
