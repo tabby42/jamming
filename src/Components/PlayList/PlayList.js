@@ -31,8 +31,9 @@ class PlayList extends Component {
 	}
 
 	handleClick(e) {
-		this.checkNameIsSet();
-		if (this.checkListEmpty() && this.checkNameIsSet()) {
+		let name = this.checkNameIsSet();
+		let list = this.checkListEmpty();
+		if (name && list) {
 			this.props.onSave();
 			this.setState({
 				inputValue: ''
