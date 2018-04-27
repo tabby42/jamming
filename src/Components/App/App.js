@@ -56,9 +56,12 @@ class App extends Component {
     //check if track is already in playlistTracks, if not -> add track to list and set new state
     if (!this.checkTrackExists(track) ) {
       let newStateplaylistTracks = this.state.playlistTracks.slice();
+      //remove selected track from search results
+      let newStateSearchResults = this.state.searchResults.filter( item => item.id !== track.id );
       newStateplaylistTracks.push(track);
       this.setState({ 
-        playlistTracks: newStateplaylistTracks 
+        playlistTracks: newStateplaylistTracks,
+        searchResults: newStateSearchResults
       });
     }
   }  
@@ -75,7 +78,7 @@ class App extends Component {
     this.setState({
       playlistName: newName
     });
-    console.log(this.state.playlistName);
+    //console.log(this.state.playlistName);
   }
 
   //generates an array of trackURIs from the playlistTracks property
