@@ -8,12 +8,12 @@ class PlayList extends Component {
 		super(props);
 		this.state = {
 	      inputValue: '',
-	      errMessages: {notSet: '', empty: ''}
+	      errMessageEmpty: '',
+	      errMessageNotSet: ''
 	    };
 		this.handleNameChange = this.handleNameChange.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.handleClick = this.handleClick.bind(this);
-		// this.checkErrors = this.checkErrors.bind(this);
 	}
 
 	handleNameChange(e) {
@@ -31,12 +31,53 @@ class PlayList extends Component {
 	}
 
 	handleClick(e) {
-		this.props.onSave();
-		this.setState({
-			inputValue: '',
-			playlistEmpty: false,
-      		playlistNameSet: true
-  		});
+		this.checkNameIsSet();
+		if (this.checkListEmpty() && this.checkNameIsSet()) {
+			this.props.onSave();
+			this.setState({
+				inputValue: ''
+	  		});
+		} 
+	}
+
+	checkListEmpty() {
+		if (this.props.tracks.length === 0 || !this.props.tracks) {
+			this.setState({
+				errMessageEmpty: 'Looks like your playlist is empty!'
+	  		});
+	  		return false;
+		} else {
+			this.setState({
+				errMessageEmpty: ''
+	  		});
+			return true;
+		}
+	}
+
+	checkNameIsSet() {
+		if (this.props.playlistName === 'New Playlist') {
+			this.setState({
+				errMessageNotSet: 'Please enter a name for your playlist!'
+	  		});
+	  		return false;
+		} else {
+			this.setState({
+				errMessageNotSet: ''
+	  		});
+			return true;
+		}
+	}
+
+	renderWarningEmpty() {
+		if (this.state.errMessageEmpty !== '') {
+			return <p className="warning">{this.state.errMessageEmpty}</p> ;
+		}
+	}
+
+	renderWarningNameNotSet() {
+		if (this.state.errMessageNotSet !== '') {
+			return <p className="warning">{this.state.errMessageNotSet}</p> ;
+		}
 	}
 
 	render() {
@@ -49,7 +90,8 @@ class PlayList extends Component {
 				<h3>{this.props.playlistName}</h3>
 				<TrackList tracks={this.props.tracks} onRemove={this.props.onRemove} isRemoval={true} />
 				<a className="Playlist-save" onClick={this.handleClick} >SAVE TO SPOTIFY</a>
-				
+				{this.renderWarningEmpty()}
+				{this.renderWarningNameNotSet()}
 			</div>
 		);
 	}
