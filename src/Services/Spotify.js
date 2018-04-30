@@ -40,7 +40,9 @@ class Spotify {
 				window.location = `${authEndpoint}?client_id=${clientId}&response_type=token&scope=${scopes}&redirect_uri=${redirectUri}`;
 				let queryParams = window.location.href;
 				let token = queryParams.match(/access_token=([^&]*)/);
-				localStorage.setItem("spotify_token", token[1]);
+				if (token) {
+					localStorage.setItem("spotify_token", token[1]);
+				}
 				//store time when token has been set
 				let now = Date.now();
 				localStorage.setItem('token_set', now);
