@@ -27,6 +27,7 @@ class PlayList extends Component {
 	handleKeyPress(e) {
 		if(e.key === 'Enter'){
 			e.target.value = '';
+			this.checkNameIsSet();
 	    }
 	}
 
