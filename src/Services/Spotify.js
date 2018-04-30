@@ -1,11 +1,15 @@
 const clientId = '2d0ef981a5a243d99d107d71bab58ec6';
 const redirectUri = 'http://localhost:3000/';
+//const redirectUri = 'http://jpc.surge.sh/';
 const scopes = 'user-read-private playlist-read-private playlist-modify-private playlist-modify-public';
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 const endpoint = 'https://api.spotify.com/v1/';
 const searchEndpoint = `${endpoint}search`;
 const userEndpoint = `${endpoint}me`;
 let accessToken = '';
+
+// if (process.env.NODE_ENV === 'production') { 
+// } 
 
 class Spotify {
 	//The Implicit Grant flow is carried out client-side and does not involve secret keys. 
