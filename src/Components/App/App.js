@@ -5,30 +5,6 @@ import SearchResults from '../SearchResults/SearchResults';
 import PlayList from '../PlayList/PlayList';
 import Spotify from '../../Services/Spotify';
 
-// const trackResults = [
-//   {
-//     id: 1,
-//     name: 'Song1',
-//     artist: 'Artist1',
-//     album: 'Album1',
-//     uri: 'test1'
-//   },
-//   {
-//     id: 2,
-//     name: 'Song2',
-//     artist: 'Artist2',
-//     album: 'Album2',
-//     uri: 'test2'
-//   },
-//   {
-//     id: 3,
-//     name: 'Song3',
-//     artist: 'Artist3',
-//     album: 'Album3',
-//     uri: 'test3'
-//   }
-// ];
-
 let spotify = new Spotify();
 
 class App extends Component {
